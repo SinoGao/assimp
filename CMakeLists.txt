@@ -391,12 +391,14 @@ ELSE()
   SET(CMAKE_DEBUG_POSTFIX "" CACHE STRING "Debug Postfix for lib, samples and tools")
 ENDIF()
 
+#[[
 # Only generate this target if no higher-level project already has
 IF (NOT TARGET uninstall AND ASSIMP_INSTALL)
   # add make uninstall capability
   CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/cmake-modules/cmake_uninstall.cmake.in" "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake" IMMEDIATE @ONLY)
   ADD_CUSTOM_TARGET(uninstall "${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake")
 ENDIF()
+]]
 
 IF( UNIX )
   # Use GNUInstallDirs for Unix predefined directories
@@ -724,9 +726,11 @@ IF ( ASSIMP_BUILD_SAMPLES )
   ADD_SUBDIRECTORY( samples/SimpleOpenGL/ )
 ENDIF ()
 
+#[[
 IF ( ASSIMP_BUILD_TESTS )
   ADD_SUBDIRECTORY( test/ )
 ENDIF ()
+]]
 
 # Generate a pkg-config .pc, revision.h, and config.h for the Assimp library.
 CONFIGURE_FILE( "${PROJECT_SOURCE_DIR}/assimp.pc.in" "${PROJECT_BINARY_DIR}/assimp.pc" @ONLY )
@@ -821,6 +825,7 @@ if(WIN32)
     ENDIF()
   ENDIF()
 
+  #[[
   IF(MSVC12 OR MSVC14 OR MSVC15 )
     ADD_CUSTOM_TARGET(UpdateAssimpLibsDebugSymbolsAndDLLs COMMENT "Copying Assimp Libraries ..." VERBATIM)
     IF(CMAKE_GENERATOR MATCHES "^Visual Studio")
@@ -844,4 +849,5 @@ if(WIN32)
       ADD_CUSTOM_COMMAND(TARGET UpdateAssimpLibsDebugSymbolsAndDLLs COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/code/assimp-${ASSIMP_MSVC_VERSION}-mtd.pdb		${LIB_DIR}assimp-${ASSIMP_MSVC_VERSION}-mtd.pdb VERBATIM)
     ENDIF()
   ENDIF()
+  ]]
 ENDIF ()

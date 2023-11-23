@@ -1271,21 +1271,22 @@ IF(ASSIMP_HUNTER_ENABLED)
       openddlparser::openddl_parser
       #poly2tri::poly2tri
       minizip::minizip
-      ZLIB::zlib
+      #ZLIB::zlib
       RapidJSON::rapidjson
       utf8cpp
       pugixml
       stb::stb
   )
   if(TARGET zip::zip)
-    target_link_libraries(assimp PUBLIC zip::zip)
+    #target_link_libraries(assimp PUBLIC zip::zip)
   endif()
 
   if (ASSIMP_BUILD_DRACO)
     target_link_libraries(assimp PUBLIC ${draco_LIBRARIES})
   endif()
 ELSE()
-  TARGET_LINK_LIBRARIES(assimp ${ZLIB_LIBRARIES} ${OPENDDL_PARSER_LIBRARIES})
+  TARGET_LINK_LIBRARIES(assimp ${OPENDDL_PARSER_LIBRARIES})
+  #TARGET_LINK_LIBRARIES(assimp ${ZLIB_LIBRARIES} ${OPENDDL_PARSER_LIBRARIES})
   if (ASSIMP_BUILD_DRACO)
     target_link_libraries(assimp ${draco_LIBRARIES})
   endif()
